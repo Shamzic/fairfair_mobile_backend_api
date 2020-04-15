@@ -3,3 +3,8 @@
 ## Installation 
 
 `npm install express nodemon`
+
+
+## Launch
+
+`npm start`
