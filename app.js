@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
-
+require('dotenv/config')
 // body parser update
 // app.use(express.urlencoded({ extended: true }));
 // app.use(express.json());
@@ -21,7 +21,7 @@ app.get('/posts', (req, res)=> {
 
 
 // Connect to DB
-mongoose.connect('mongodb://admin:tototo1@ds235833.mlab.com:35833/rest',  { useNewUrlParser: true, useUnifiedTopology: true },  () => {
+mongoose.connect(process.env.DB_CONNECTION,  { useNewUrlParser: true, useUnifiedTopology: true },  () => {
   console.log("connected to DB !")
 })
 
