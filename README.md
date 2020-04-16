@@ -8,6 +8,8 @@
 
 `npm install body-parser`
 
+`npm install cors`
+
 ## Launch
 
 `npm start`
