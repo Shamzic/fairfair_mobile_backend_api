@@ -10,6 +10,8 @@
 
 `npm install cors`
 
+`npm i jsonwebtoken dotenv`
+
 ## Launch
 
 `npm start`
