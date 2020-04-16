@@ -6,6 +6,7 @@
 
 `npm install mongoose`
 
+`npm install body-parser`
 
 ## Launch
 
