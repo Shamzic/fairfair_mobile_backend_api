@@ -6,6 +6,11 @@
 
 `npm install mongoose`
 
+`npm install body-parser`
+
+`npm install cors`
+
+`npm i jsonwebtoken dotenv`
 
 ## Launch
 
