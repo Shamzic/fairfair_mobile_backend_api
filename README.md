@@ -10,7 +10,9 @@
 
 `npm install cors`
 
-`npm i jsonwebtoken dotenv`
+`npm install jsonwebtoken dotenv`
+
+`npm install bcrypt`
 
 ## Launch
 

@@ -8,12 +8,14 @@ const usersRoute = require('./routes/users');
 require('dotenv/config');
 
 
-
 // Middlewares
-app.use(cors());
-app.use('/posts', postsRoute); // post middleware
-app.use(bodyParser.json());
-app.use('/users', usersRoute); // post middleware
+app.use(cors())
+app.use(bodyParser.json())
+
+app.use('/posts', postsRoute) // post middleware
+app.use('/users', usersRoute) // post middleware
+app.use(express.json())
+
 
 // ROUTES
 app.get('/', (req, res) => {

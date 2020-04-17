@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+require('dotenv/config');
 
 // GET API all the users
 router.get('/', async (req, res) => {
@@ -27,6 +29,7 @@ router.post('/', async (req, res) => {
     const user = new User({
       firstname : req.body.firstname,
       lastname: req.body.lastname,
+      email: req.body.email,
       password: hashedPassword
     });
 
@@ -44,7 +47,7 @@ router.post('/login', async (req, res) => {
     const users = await User.find();
     var login_user = null;
     users.forEach(user => {
-      if(user.firstname == req.body.firstname) {
+      if(user.email == req.body.email) {
         login_user = user;
       }
     });
@@ -53,14 +56,18 @@ router.post('/login', async (req, res) => {
       return res.status(400).send('Cannot find the user');
     }
 
+    var user = login_user.toObject({ getters: true }); 
+    console.log(user);
+
     try {
-      if(await bcrypt.compare(req.body.password, login_user.password)) {
-        res.send('Success');
+      if(await bcrypt.compare(req.body.password, user.password)) {
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        res.send({accessToken: accessToken})
       } else {
-        res.send('Not Allowed')
+        res.send('Not Allowed after bcrypt')
       }
     } catch (err) {
-      res.send('Not Allowed');
+      res.send('Not Allowed catch');
     }
 });
 
