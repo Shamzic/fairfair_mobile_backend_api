@@ -3,7 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-require('dotenv/config');
+
+
+let refreshTokens = []; // need further to be store inside the DB
 
 // GET API all the users
 router.get('/', async (req, res) => {
@@ -41,6 +43,29 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/token', (req, res) => {
+  console.log("/token..");
+
+  const refreshToken = req.body.token;
+  console.log(refreshToken)
+  if(refreshToken == null) {
+    return res.sendStatus(401)
+  }
+  if(!refreshTokens.includes(refreshToken)) {
+    return res.sendStatus(403)
+  }
+  
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if(err) {
+      return res.sendStatus(403)
+    }
+    console.log("USER : ", user)
+    const accessToken = generateAccessToken({firstname: user.firstname})
+    res.json({accessToken: accessToken})
+  })
+});
+
+
 // POST : login a user
 router.post('/login', async (req, res) => {
 
@@ -57,12 +82,14 @@ router.post('/login', async (req, res) => {
     }
 
     var user = login_user.toObject({ getters: true }); 
-    console.log(user);
 
     try {
       if(await bcrypt.compare(req.body.password, user.password)) {
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-        res.send({accessToken: accessToken})
+
+        const accessToken = generateAccessToken(user);
+        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+        refreshTokens.push(refreshToken);
+        res.send({accessToken: accessToken, refreshToken: refreshToken})
       } else {
         res.send('Not Allowed after bcrypt')
       }
@@ -70,6 +97,10 @@ router.post('/login', async (req, res) => {
       res.send('Not Allowed catch');
     }
 });
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'});
+}
 
 
 module.exports = router;
