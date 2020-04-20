@@ -98,6 +98,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// DELETE : logout a user
+router.delete('/logout', async (req, res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  res.sendStatus(204)
+});
+
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'});
 }

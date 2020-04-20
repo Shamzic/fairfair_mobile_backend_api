@@ -16,4 +16,5 @@
 
 ## Launch
 
-`npm start`
+Launch the serveur on port 3000 : `npm run start`
+Lunch the auth server on port 4000 : `npm run startAuth` 
