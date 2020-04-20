@@ -16,22 +16,10 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: false
-  }
-  // lat: {
-  //   type: Number,
-  //   required: false
-  // },
-  // long: {
-  //   type: Number,
-  //   required: false
-  // },
+  },
   // is_online: {
   //   type: Boolean,
   //   required: false
-  // },
-  // createdAt: {
-  //   type: Date,
-  //   default: Date.now
   // }
 });
 

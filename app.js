@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const postsRoute = require('./routes/posts');
 const usersRoute = require('./routes/users');
+const positionsRoute = require('./routes/positions');
 
 
 // Middlewares
@@ -13,6 +14,7 @@ app.use(bodyParser.json())
 
 app.use('/posts', postsRoute) // post middleware
 app.use('/users', usersRoute) // post middleware
+app.use('/positions', positionsRoute) // post middleware
 app.use(express.json())
 
 

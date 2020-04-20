@@ -6,13 +6,19 @@ require('dotenv/config');
 
 
 function authenticateToken(req, res, next) {
+  
+  console.log("authentification...");
+
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   
   if(token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if(err) return res.sendStatus(403);
+    
+  console.log(req.body);
+  console.log(user)
     req.user = user
     next();
   })
@@ -25,7 +31,8 @@ router.get('/', authenticateToken, async (req, res) => {
       posts_object = JSON.parse(JSON.stringify(posts));
 
       // console.log(posts_object);
-      res.json(posts_object.filter(post => post.username === req.user.firstname));
+      // res.json(posts_object.filter(post => post.username === req.user.firstname));
+      res.json(posts);
     } catch(err) {
       res.json({message: err})
     }
