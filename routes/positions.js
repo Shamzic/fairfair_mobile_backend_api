@@ -17,6 +17,7 @@ function authenticateToken(req, res, next) {
     if(err) return res.sendStatus(403);
     // console.log(user)
     req.user = user
+    console.log("authentifié");
     next();
   })
 }
@@ -35,7 +36,7 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // POST API call
-router.post('/', async (req,res) => {
+router.post('/', authenticateToken, async (req,res) => {
 
   console.log(req.body)
 
