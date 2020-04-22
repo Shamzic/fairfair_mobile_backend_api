@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Update or create a artisan if not already created
+// Update or create an artisan if not already created
 router.post('/update', async (req, res) => {
   try {
     const artisan = await Artisan.findOne({"fairfair_id": req.body.fairfair_id});
@@ -84,88 +84,13 @@ router.post('/create', authenticateToken, async (req, res) => {
     }
   });
 
-  // try {
-  //   const artisans = await Post.find();
-  //   artisans_objets = JSON.parse(JSON.stringify(artisans));
-  //   console.log("artisans object :", artisans_objets);
-  //   res.json(artisans_objets.filter(artisan => artisan.fairfair_id === req.body.fairfair_id));
-  // } catch(err) {
-  //   res.json({message: err})
-  // }
-
-  ////////////////////
-
-  // try {
-  //   console.log("set up artisan")
-  //   var artisan = null;
-  //   const artisans = await Artisan.find();
-  //   // res.json(artisans);
-  //   if(artisans) {
-  //     const artisans_o = JSON.parse(JSON.stringify(artisans));
-  //     artisan = artisans_o.filter(artisan => artisan.fairfair_id == req.body.fairfair_id); 
-  //     res.json(artisan);
-  //   }
-
-  //   if(!artisan) {
-  //     try {
-  //       const artisan = new Artisan({
-  //         fairfair_id: artisan.fairfair_id,
-  //         firstname : artisan.firstname,
-  //         lastname: artisan.lastname,
-  //         email: artisan.email,
-  //         status: artisan.status,
-  //         phone: artisan.phone
-  //       });
-  //       const savedArtisan = await artisan.save();
-  //       res.json(savedArtisan);
-  //     } catch (err) {
-  //       res.json({message: err});
-  //     }
-  //   } else {
-  //     res.json({message: "This artisan exist already"});
-  //   }
-  // } catch (err) {
-  //   res.json({message: err})
-  // }
-
 
 
 
 module.exports = router;
 
-  // 
-  // let artisan = null;
-  // if(artisans) {
-  //   const artisans_o = JSON.parse(JSON.stringify(artisans));
-  //   artisan = artisans_o.filter(artisan => artisan.fairfair_id == req.body.fairfair_id); 
-  //   res(201).json(artisan);
-  // }
-  // if(!artisan) {
-  //   try {
-  //     const artisan = new Artisan({
-  //       fairfair_id: artisan.fairfair_id,
-  //       firstname : artisan.firstname,
-  //       lastname: artisan.lastname,
-  //       email: artisan.email,
-  //       status: artisan.status,
-  //       phone: artisan.phone
-  //     });
-  //     const savedArtisan = await artisan.save();
-  //     res.status(201).json(savedArtisan);
-  //   } catch (err) {
-  //     res.status(500).json({message: err});
-  //   }
-  // } else {
-  //   res.status(201).json({message: "This artisan exist already"});
-  // }
 
-
-
-
-
-
-
-// Artisan Classical Auth Not Used
+// Artisan Classical Auth hash password Not Used
 // // Because QuiOuvre has already an auth service
 // router.post('/', async (req, res) => {
 
@@ -210,7 +135,7 @@ module.exports = router;
 // });
 
 
-// // POST : login a artisan
+// // POST : login an artisan
 // router.post('/login', async (req, res) => {
 
 //     const artisans = await Artisan.find();
@@ -242,7 +167,7 @@ module.exports = router;
 //     }
 // });
 
-// // DELETE : logout a artisan
+// // DELETE : logout an artisan
 // router.delete('/logout', async (req, res) => {
 //   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
 //   res.sendStatus(204)
