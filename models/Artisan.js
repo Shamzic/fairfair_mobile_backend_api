@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-const UserSchema = mongoose.Schema({
+const ArtisanSchema = mongoose.Schema({
+  fairfair_id : {
+    type: Number,
+    required: true,
+  },
   firstname: {
     type: String,
     required: false
@@ -13,15 +17,15 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  password: {
+  status: {
     type: String,
     required: false
   },
-  // is_online: {
-  //   type: Boolean,
-  //   required: false
-  // }
+  phone: {
+    type: Number,
+    required: false
+  }
 });
 
-module.exports = mongoose.model('Users',UserSchema);
+module.exports = mongoose.model('Artisans',ArtisanSchema);
 

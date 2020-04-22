@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const postsRoute = require('./routes/posts');
-const usersRoute = require('./routes/users');
+const artisansRoute = require('./routes/artisans');
 const positionsRoute = require('./routes/positions');
 
 
@@ -13,7 +13,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.use('/posts', postsRoute) // post middleware
-app.use('/users', usersRoute) // post middleware
+app.use('/artisans', artisansRoute) // post middleware
 app.use('/positions', positionsRoute) // post middleware
 app.use(express.json())
 
