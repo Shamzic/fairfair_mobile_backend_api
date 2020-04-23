@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update or create an artisan if not already created
-router.post('/update', async (req, res) => {
+router.post('/set', async (req, res) => {
   try {
     const artisan = await Artisan.findOne({"fairfair_id": req.body.fairfair_id});
     artisan_objet = JSON.parse(JSON.stringify(artisan));
@@ -64,6 +64,31 @@ router.post('/update', async (req, res) => {
     res.json({message: err})
   }
 });
+
+// Update ONLY the status or create an artisan if not already created
+router.post('/setstatus', async (req, res) => {
+  try {
+    const artisan = await Artisan.findOne({"fairfair_id": req.body.fairfair_id});
+    artisan_objet = JSON.parse(JSON.stringify(artisan));
+  
+    if(!artisan_objet) {
+      const artisan = new Artisan({
+        fairfair_id: req.body.fairfair_id,
+        status: req.body.status,
+      });
+      artisan_objet = await artisan.save();
+    } else {
+      artisan_objet = await artisan.updateOne({
+        fairfair_id: req.body.fairfair_id,
+        status: req.body.status,
+      });
+    }
+    res.json(artisan_objet);
+  } catch(err) {
+    res.json({message: err})
+  }
+});
+
 
 router.post('/create', authenticateToken, async (req, res) => {
   
