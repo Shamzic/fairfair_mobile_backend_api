@@ -1,29 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Position = require('../models/Position');
-const jwt = require('jsonwebtoken')
 require('dotenv/config');
+require('./auth')
 
-
-function authenticateToken(req, res, next) {
-  
-  console.log("authentification...");
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  
-  if(token == null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if(err) return res.sendStatus(403);
-    // console.log(user)
-    req.user = user
-    console.log("authentifié");
-    next();
-  })
-}
 
 // GET API all the positions  // of the authenticated user
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', global.authenticateToken, async (req, res) => {
     try {
       const positions = await Position.find();
       positions_obj = JSON.parse(JSON.stringify(positions));
@@ -36,7 +19,7 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // POST API call
-router.post('/', authenticateToken, async (req,res) => {
+router.post('/', global.authenticateToken, async (req,res) => {
 
   console.log(req.body)
 

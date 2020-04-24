@@ -15,7 +15,7 @@ const ArtisanSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
+    required: false
   },
   status: {
     type: String,

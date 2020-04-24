@@ -3,23 +3,9 @@ const router = express.Router();
 const Artisan = require('../models/Artisan');
 // const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-
+require('./auth')
 
 let refreshTokens = []; // need further to be store inside the DB
-
-function authenticateToken(req, res, next) {
-
-  console.log("authentification...");
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if(token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.JWT_SECRET, (err, artisan) => {
-    if(err) return res.sendStatus(403);
-  
-    req.artisan = artisan
-    next();
-  })
-}
 
 // GET API all the artisans
 router.get('/', async (req, res) => {
@@ -34,7 +20,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update or create an artisan if not already created
-router.post('/set', async (req, res) => {
+router.post('/set', global.authenticateToken, async (req, res) => {
   try {
     const artisan = await Artisan.findOne({"fairfair_id": req.body.fairfair_id});
     artisan_objet = JSON.parse(JSON.stringify(artisan));
@@ -66,7 +52,7 @@ router.post('/set', async (req, res) => {
 });
 
 // Update ONLY the status or create an artisan if not already created
-router.post('/setstatus', async (req, res) => {
+router.post('/setstatus', global.authenticateToken,  async (req, res) => {
   try {
     const artisan = await Artisan.findOne({"fairfair_id": req.body.fairfair_id});
     artisan_objet = JSON.parse(JSON.stringify(artisan));
@@ -90,7 +76,7 @@ router.post('/setstatus', async (req, res) => {
 });
 
 
-router.post('/create', authenticateToken, async (req, res) => {
+router.post('/create', global.authenticateToken, async (req, res) => {
   
   const artisan = new Artisan({
     fairfair_id: req.body.fairfair_id,
