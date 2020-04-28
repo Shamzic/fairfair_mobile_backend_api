@@ -9,9 +9,9 @@ let refreshTokens = []; // need further to be store inside the DB
 
 // GET API all the artisans
 router.get('/', async (req, res) => {
+  console.log("___get artisans___");
   try {
     const artisans = await Artisan.find();
-    
   console.log("get artisans : ", artisans);
     res.json(artisans);
   } catch(err) {

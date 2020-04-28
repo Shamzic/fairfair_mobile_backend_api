@@ -6,7 +6,9 @@ const cors = require('cors');
 const postsRoute = require('./routes/posts');
 const artisansRoute = require('./routes/artisans');
 const positionsRoute = require('./routes/positions');
+var MongoClient = require('mongodb').MongoClient;
 
+require('dotenv/config')
 
 // Middlewares
 app.use(cors())
@@ -23,8 +25,11 @@ app.get('/', (req, res) => {
   res.send("We are on home");
 });
 
-// Connect to DB
-mongoose.connect(process.env.DB_CONNECTION,  { useNewUrlParser: true, useUnifiedTopology: true },  () => {
+// Connect to DB // process.env.DB_CONNECTION
+mongoose.connect("mongodb://localhost:51511/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
+  if (err) {
+    throw err;
+  }
   console.log("connected to DB !")
 })
 
