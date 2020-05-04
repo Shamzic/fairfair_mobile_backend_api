@@ -1,38 +1,76 @@
-const express = require('express');
-const app = express();
+//  app.use(express.static(path.join(__dirname, 'public'))); 
+
+var createError = require('http-errors');
+var express = require('express');
 const mongoose = require('mongoose');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+
 const bodyParser = require('body-parser');
-const cors = require('cors');
-const postsRoute = require('./routes/posts');
-const artisansRoute = require('./routes/artisans');
-const positionsRoute = require('./routes/positions');
-var MongoClient = require('mongodb').MongoClient;
+var artisansRoute = require('./routes/artisans');
 
-require('dotenv/config')
+require('dotenv').config({ path: './.env' });
 
-// Middlewares
-app.use(cors())
-app.use(bodyParser.json())
+var app = express();
 
-app.use('/posts', postsRoute) // post middleware
-app.use('/artisans', artisansRoute) // post middleware
-app.use('/positions', positionsRoute) // post middleware
-app.use(express.json())
+app.use(bodyParser.json());
+app.use('/artisans', artisansRoute);
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use('/', indexRouter);
 
 // ROUTES
 app.get('/', (req, res) => {
-  res.send("We are on home");
+  res.send("Welcome to the Fairfair mobile API");
+});
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-// Connect to DB // process.env.DB_CONNECTION
-mongoose.connect("mongodb://localhost:51511/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
-  if (err) {
-    throw err;
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+
+
+// Connect to DB
+console.log("DB preparation...");
+// 
+
+  if(process.env.HOME =="/home/ec2-user") {
+    console.log("Node server running on EC2 instance..")
+    mongoose.connect("mongodb://my_user:my_pwd@localhost:27017/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, res) {
+      if (err) {
+        throw err;
+      }
+      console.log("connected to DB !")
+    })
+  } else  {
+    console.log("Node server running on test mode..")
+    mongoose.connect("mongodb://localhost:56805/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
+      if (err) {
+        throw err;
+      }
+      console.log("connected to DB !")
+    })
   }
-  console.log("connected to DB !")
-})
 
-// listening the server
-app.listen(3000);
-
+module.exports = app;
