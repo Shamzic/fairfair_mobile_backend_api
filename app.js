@@ -9,6 +9,7 @@ var logger = require('morgan');
 
 const bodyParser = require('body-parser');
 var artisansRoute = require('./routes/artisans');
+const positionsRoute = require('./routes/positions');
 
 require('dotenv').config({ path: './.env' });
 
@@ -16,6 +17,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use('/artisans', artisansRoute);
+app.use('/positions', positionsRoute)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
