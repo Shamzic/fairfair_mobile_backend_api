@@ -13,7 +13,11 @@ html
           tr
             td.td-top id
             td.td-top status
-            each item in artisans
-              tr
+            each item, i in artisans
+              if (i % 2)
+                - trclass = "white"
+              else
+                - trclass = "grey"
+              tr(class=trclass)
                 td #{item.fairfair_id}
                 td #{item.status}

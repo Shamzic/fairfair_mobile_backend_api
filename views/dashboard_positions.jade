@@ -1,5 +1,8 @@
 extends layout
 
+
+
+
 doctype html
 html
   head
@@ -11,9 +14,17 @@ html
       table
         thread
           tr
-            td.td-top id
-            td.td-top status
-            each item in artisans
-              tr
-                td #{item.fairfair_id}
-                td #{item.status}
+            td.td-top ID Artisan
+            td.td-top Latitude
+            td.td-top Longitude
+            td.td-top Date
+            each item, i in positions
+              if (i % 2)
+                - trclass = "white"
+              else
+                - trclass = "grey"
+              tr(class=trclass)
+                td #{item.userId}
+                td #{item.latitude}
+                td #{item.longitude}
+                td #{moment(item.iat).format('DD/MM/YYYY HH:MM:SS')}

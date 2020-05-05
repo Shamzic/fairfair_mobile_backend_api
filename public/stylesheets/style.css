@@ -25,6 +25,13 @@ table {
 }
 
 td {
-  min-width: 80px;
+  min-width: 170px;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  vertical-align: middle;
+}
+
+tr.grey {
+  background-color: #b3ffd9;
 }

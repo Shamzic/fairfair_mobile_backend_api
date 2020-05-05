@@ -14,6 +14,8 @@
 
 `npm install bcrypt`
 
+`npm install moment --save`
+
 ## Launch
 
 Launch the serveur on port 3000 : `npm run start`

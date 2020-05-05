@@ -12,10 +12,12 @@ var artisansRoute = require('./routes/artisans');
 const positionsRoute = require('./routes/positions');
 const dashboardRoute = require('./routes/dashboard');
 
+
 require('dotenv').config({ path: './.env' });
 
 var app = express();
 
+app.locals.moment = require('moment');
 app.use(bodyParser.json());
 app.use('/artisans', artisansRoute);
 app.use('/positions', positionsRoute);
@@ -31,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // app.use('/', indexRouter);
 
