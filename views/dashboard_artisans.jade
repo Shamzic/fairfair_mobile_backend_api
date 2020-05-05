@@ -1,0 +1,19 @@
+extends layout
+
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+      div.header #{title}
+      table
+        thread
+          tr
+            td.td-top id
+            td.td-top status
+            each item in artisans
+              tr
+                td #{item.fairfair_id}
+                td #{item.status}

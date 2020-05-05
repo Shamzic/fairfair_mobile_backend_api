@@ -10,6 +10,7 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 var artisansRoute = require('./routes/artisans');
 const positionsRoute = require('./routes/positions');
+const dashboardRoute = require('./routes/dashboard');
 
 require('dotenv').config({ path: './.env' });
 
@@ -17,10 +18,12 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use('/artisans', artisansRoute);
-app.use('/positions', positionsRoute)
+app.use('/positions', positionsRoute);
+app.use('/dashboard', dashboardRoute)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
@@ -67,7 +70,7 @@ console.log("DB preparation...");
     })
   } else  {
     console.log("Node server running on test mode..")
-    mongoose.connect("mongodb://localhost:56805/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
+    mongoose.connect("mongodb://localhost:64536/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
       if (err) {
         throw err;
       }

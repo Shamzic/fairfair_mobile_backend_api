@@ -1,0 +1,30 @@
+html {
+  font-family: 'Arial'
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  font-weight: 600;
+  font-size: larger;
+  color: white;
+  background-color: #36B288;
+  height: 35px;
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+table {
+  margin: 30px;
+}
+
+.td-top {
+  font-weight: bold;
+}
+
+td {
+  min-width: 80px;
+  text-align: center;
+}
