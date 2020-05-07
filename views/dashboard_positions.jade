@@ -18,7 +18,7 @@ html
             td.td-top Latitude
             td.td-top Longitude
             td.td-top Date
-            each item, i in positions
+            each item, i in positions.reverse()
               if (i % 2)
                 - trclass = "white"
               else
@@ -27,4 +27,4 @@ html
                 td #{item.userId}
                 td #{item.latitude}
                 td #{item.longitude}
-                td #{moment(item.iat).format('DD/MM/YYYY HH:MM:SS')}
+                td #{moment(item.iat).format('DD/MM/YYYY HH:mm:ss')}

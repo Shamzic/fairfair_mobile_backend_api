@@ -42,7 +42,7 @@ router.post('/', global.authenticateToken, async (req,res) => {
     userId : req.body.userId,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
-    iat: Date.now()
+    iat: Date.now()+(2*60*60*1000) // Add 2 hours to the UTC time
   });
 
   // Save Post object to the DB
@@ -53,5 +53,7 @@ router.post('/', global.authenticateToken, async (req,res) => {
     res.json({message: err});
   }
 });
+
+
 
 module.exports = router;

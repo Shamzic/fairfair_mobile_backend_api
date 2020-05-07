@@ -73,7 +73,7 @@ console.log("DB preparation...");
     })
   } else  {
     console.log("Node server running on test mode..")
-    mongoose.connect("mongodb://localhost:64536/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
+    mongoose.connect("mongodb://localhost:60655/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
       if (err) {
         throw err;
       }
