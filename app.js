@@ -11,9 +11,12 @@ const bodyParser = require('body-parser');
 var artisansRoute = require('./routes/artisans');
 const positionsRoute = require('./routes/positions');
 const dashboardRoute = require('./routes/dashboard');
-
+const notificationsRoute = require('./routes/notifications');
+// require('./expoServices')();
 
 require('dotenv').config({ path: './.env' });
+
+const dbPort = 60481;
 
 var app = express();
 
@@ -21,7 +24,8 @@ app.locals.moment = require('moment');
 app.use(bodyParser.json());
 app.use('/artisans', artisansRoute);
 app.use('/positions', positionsRoute);
-app.use('/dashboard', dashboardRoute)
+app.use('/dashboard', dashboardRoute);
+app.use('/notifications', notificationsRoute);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -73,7 +77,7 @@ console.log("DB preparation...");
     })
   } else  {
     console.log("Node server running on test mode..")
-    mongoose.connect("mongodb://localhost:60655/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
+    mongoose.connect("mongodb://localhost:"+dbPort+"/test",  { useNewUrlParser: true, useUnifiedTopology: true } , function(err, result) {
       if (err) {
         throw err;
       }

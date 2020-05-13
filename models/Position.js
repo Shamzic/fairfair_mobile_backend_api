@@ -15,7 +15,7 @@ const PositionSchema = mongoose.Schema({
   },
   iat: {
     type: Date,
-    default: Date.now
+    default: Date.now()+(2*60*60*1000) // Add 2 hours to the UTC time
   }
 });
 

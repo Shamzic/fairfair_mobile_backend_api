@@ -7,6 +7,7 @@ require('./auth')
 
 // GET API positions  of the authenticated user with his uid
 router.get('/:uid', global.authenticateToken, async (req, res) => {
+  console.log("get position ")
     try {
       const positions = await Position.find();
       positions_obj = JSON.parse(JSON.stringify(positions));

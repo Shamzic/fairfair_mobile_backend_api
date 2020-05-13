@@ -5,9 +5,20 @@ const Artisan = require('../models/Artisan');
 const jwt = require('jsonwebtoken')
 require('./auth')
 
-// GET API all the artisans
+
+// GET status artisan
+router.get('/:uid', global.authenticateToken, async (req, res) => {
+  try {
+    const artisan = await Artisan.findOne({"fairfair_id": req.params.uid.toString()});
+    // const artisan = await Artisan.find();
+    res.json(artisan);
+  } catch(err) {
+    res.json({message: err})
+  }
+});
+
+
 router.get('/', async (req, res) => {
-  
   try {
     const artisans = await Artisan.find();
     console.log("get artisans : ", artisans);
@@ -16,6 +27,7 @@ router.get('/', async (req, res) => {
     res.json({message: err})
   }
 });
+
 
 // Update or create an artisan if not already created
 router.post('/set', global.authenticateToken, async (req, res) => {
