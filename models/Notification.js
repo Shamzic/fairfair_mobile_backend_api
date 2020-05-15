@@ -17,6 +17,14 @@ const NotificationSchema = mongoose.Schema({
     type: Object,
     required: false
   },
+  channelId: {
+    type: String,
+    required: false
+  },
+  color: {
+    type: String,
+    required: false
+  },
   iat: {
     type: Date,
     default: Date.now()+(2*60*60*1000)  // Add 2 hours to the UTC time

@@ -71,12 +71,14 @@ router.post('/setstatus', global.authenticateToken,  async (req, res) => {
       const artisan = new Artisan({
         fairfair_id: req.body.fairfair_id,
         status: req.body.status,
+        expo_push_token: req.body.expo_push_token,
       });
       artisan_objet = await artisan.save();
     } else {
       artisan_objet = await artisan.updateOne({
         fairfair_id: req.body.fairfair_id,
         status: req.body.status,
+        expo_push_token: req.body.expo_push_token,
       });
     }
     res.json(artisan_objet);

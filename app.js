@@ -16,7 +16,7 @@ const notificationsRoute = require('./routes/notifications');
 
 require('dotenv').config({ path: './.env' });
 
-const dbPort = 60481;
+const dbPort = 64500;
 
 var app = express();
 

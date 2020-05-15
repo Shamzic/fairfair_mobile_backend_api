@@ -24,7 +24,11 @@ const ArtisanSchema = mongoose.Schema({
   phone: {
     type: Number,
     required: false
-  }
+  },
+  expo_push_token: {
+    type: String,
+    required: false
+  },
 });
 
 module.exports = mongoose.model('Artisans',ArtisanSchema);
