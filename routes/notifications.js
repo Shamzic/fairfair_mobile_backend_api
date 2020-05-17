@@ -76,11 +76,13 @@ router.post('/mission', global.authenticateToken, async (req,res) => {
       continue;
     }
 
+      
     messages.push({
       to: pushToken,
       sound: "default",
       body: req.body.body,
       data: req.body.data,
+      color: req.body.color,
       channelId: req.body.channelId,
       iat: Date.now()+(2*60*60*1000) // Add 2 hours to the UTC time
     })
